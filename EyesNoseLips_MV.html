@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+    body {
+      width: 600px; height: 390px; padding: 0; overflow: hidden;
+      background-color: #000;
+      margin: 10% auto;
+      transform: scale(0.2);
+    }
+    #player0 {
+      transform: translateX(315px);
+    }
+    #player1 {
+      transform: translateX(750px) translateY(120px) rotate(90deg);
+    }
+    #player2 {
+      transform: translateX(315px) translateY(235px) rotate(180deg);
+    }
+    #player3 {
+      transform: translateY(-520px) translateX(-120px) rotate(270deg);
+    }
+    </style>
+  </head>
+  <body>
+    <div id="player0"></div>
+    <div id="player1"></div>
+    <div id="player2"></div>
+    <div id="player3"></div>
+
+    <script type="text/javascript">
+
+      /**
+       * CHANGE THIS
+       */
+      const VideoID = "UwuAPyOImoI";
+      // ===========================
+
+      var tag = document.createElement('script');
+      tag.src = "https://www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+      var player = {};
+      function onYouTubeIframeAPIReady() {
+        Array.from(Array(4).keys()).forEach((i) => {
+          player[i] = new YT.Player(`player${i}`, {
+            height: '315',
+            width: '560',
+            videoId: VideoID,
+            events: {
+              'onReady': onPlayerReady,
+              'onStateChange': onPlayerStateChange
+            }
+          });
+        }) // end forloop
+      }
+      // var done = false;
+      function onPlayerStateChange(event) {
+        // if (event.data == YT.PlayerState.PLAYING && !done) {
+        //   setTimeout(stopVideo, 6000);
+        //   done = true;
+        // }
+      }
+      function onPlayerReady(event) {
+        event.target.playVideo();
+      }
+
+      setTimeout(() => {
+        Array.from(Array(4).keys()).forEach((i) => {
+          player[i].playVideo();
+        });
+      }, 5000);
+    </script>
+
+  </body>
+</html>
